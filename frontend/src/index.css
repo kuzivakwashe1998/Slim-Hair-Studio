@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* Light theme (default) */
+:root { --bg: 255 255 255; --card: 244 244 245; --fg: 10 10 10; --muted: 107 107 107; color-scheme: light; }
+/* Dark theme — the brand default */
+.dark { --bg: 10 10 10; --card: 20 20 20; --fg: 255 255 255; --muted: 138 138 138; color-scheme: dark; }
+
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body { @apply bg-bg text-fg font-sans antialiased transition-colors duration-300; }
+
+/* Primary action: gold gradient in dark, ink black in light (as per reference) */
+.btn-primary { @apply bg-fg text-bg; }
+.dark .btn-primary { background-image: linear-gradient(90deg, #C9A227, #E8C766, #C9A227); color: #0A0A0A; }
+.btn-primary-glow { box-shadow: 0 10px 40px -10px rgb(var(--fg) / .45); }
+.dark .btn-primary-glow { box-shadow: 0 10px 40px -10px #D4AF37; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* gold underline sweep on section titles */
+.gold-line { @apply relative block h-px bg-gold origin-left; }
+.gold-line-anim { animation: lineGrow 1.2s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* hover underline sweep for links */
+.link-sweep { position: relative; }
+.link-sweep::after { content: ""; position: absolute; left: 0; bottom: -2px; height: 1px; width: 100%; background: #D4AF37; transform: scaleX(0); transform-origin: right; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.link-sweep:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* selectable card: gold border draws in */
+.sel-card { position: relative; transition: transform .35s ease, background-color .35s ease; }
+.sel-card::before, .sel-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; }
+.sel-card::before { border-top: 1px solid #D4AF37; border-bottom: 1px solid #D4AF37; transform: scaleX(0); transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.sel-card::after  { border-left: 1px solid #D4AF37; border-right: 1px solid #D4AF37; transform: scaleY(0); transition: transform .45s cubic-bezier(.22,1,.36,1) .1s; }
+.sel-card.active::before { transform: scaleX(1); }
+.sel-card.active::after  { transform: scaleY(1); }
+.sel-card:hover:not(.active) { transform: translateY(-2px); background-color: #181818; }
+
+input { color-scheme: dark; }
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px rgb(var(--card)) inset; -webkit-text-fill-color: rgb(var(--fg)); }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }

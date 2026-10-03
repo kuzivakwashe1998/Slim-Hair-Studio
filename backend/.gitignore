@@ -1,0 +1,4 @@
+node_modules
+data/bookings.json
+data/vapid.json
+data/push-subscriptions.json
